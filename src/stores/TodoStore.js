@@ -4,27 +4,33 @@ import { ref, watch } from "vue";
 export const useTodoStore = defineStore("todoStore", () => {
   const todos = ref([]);
 
-  watch(
-    todos,
-    () => {
-      console.log(todos.value);
-    },
-    { immediate: true }
-  );
-
   const addTodo = (value) => {
     todos.value.push({
       id: Date.now().toString(),
-      value: value,
-      isDone: false,
+      title: value,
+      completed: false,
     });
   };
 
   const removeTodo = (id) => {
-    // const pickedTodo = todos.value.find((todo) => todo.id === id);
-    // todos.value.splice(todos.value.indexOf(pickedTodo), 1);
-    todos.value = [];
+    todos.value = todos.value.filter((todo) => todo.id !== id);
   };
 
-  return { todos, addTodo, removeTodo };
+  const toggleTodoStatus = (id) => {
+    todos.value.forEach((todo) => {
+      if (todo.id === id) {
+        todo.completed = !todo.completed;
+      }
+    });
+  };
+
+  const getTodos = async () => {
+    const response = await fetch(
+      "https://jsonplaceholder.typicode.com/todos?_limit=5"
+    );
+    const data = await response.json();
+    todos.value = data;
+  };
+
+  return { todos, addTodo, removeTodo, toggleTodoStatus, getTodos };
 });

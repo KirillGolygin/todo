@@ -1,15 +1,20 @@
 <script setup>
 import { useTodoStore } from "./stores/TodoStore";
+import { onMounted } from "vue";
 import todoList from "./components/todo-list.vue";
 import taskInput from "./components/task-input.vue";
 
-const { todos, addTodo } = useTodoStore();
+const todoStore = useTodoStore();
+
+onMounted(() => {
+  todoStore.getTodos();
+});
 </script>
 
 <template>
   <div class="wrapper">
-    <taskInput @addTodo="addTodo" />
-    <todoList :todos="todos" />
+    <taskInput @addTodo="todoStore.addTodo" />
+    <todoList :todos="todoStore.todos" />
   </div>
 </template>
 
