@@ -14,7 +14,7 @@ onMounted(() => {
 <template>
   <div class="wrapper">
     <taskInput @addTodo="todoStore.addTodo" />
-    <todoList :todos="todoStore.todos" />
+    <todoList :loading="todoStore.loading" :todos="todoStore.todos" />
   </div>
 </template>
 

@@ -5,15 +5,22 @@ const props = defineProps({
   todos: {
     type: Array,
   },
+  loading: {
+    type: Boolean,
+  },
 });
 </script>
 
 <template>
   <div class="todos-container">
     <todoItem v-for="todo of todos" :key="todo.id" :todo="todo" />
-    <p class="todo-empty-message" v-if="todos.length === 0">
+    <p
+      class="todo-empty-message"
+      v-if="todos.length === 0 && loading === false"
+    >
       todo list is empty
     </p>
+    <p class="todo-empty-message" v-else-if="loading">loading...</p>
   </div>
 </template>
 
