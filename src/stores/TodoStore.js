@@ -27,5 +27,16 @@ export const useTodoStore = defineStore("todoStore", () => {
     loading.value = false;
   };
 
+  const todosInLocalStorage = localStorage.getItem("todos");
+  if (todosInLocalStorage) {
+    todos.value = JSON.parse(todosInLocalStorage);
+  }
+  watch(
+    todos,
+    (state) => {
+      localStorage.setItem("todos", JSON.stringify(state));
+    },
+    { deep: true }
+  );
   return { todos, loading, addTodo, removeTodo, getTodos };
 });

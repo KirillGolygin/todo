@@ -7,7 +7,9 @@ import taskInput from "./components/task-input.vue";
 const todoStore = useTodoStore();
 
 onMounted(() => {
-  todoStore.getTodos();
+  if (!localStorage.getItem("todos")) {
+    todoStore.getTodos();
+  }
 });
 </script>
 
