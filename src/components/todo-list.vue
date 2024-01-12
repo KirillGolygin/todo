@@ -1,14 +1,13 @@
-<script setup>
+<script setup lang="ts">
+import type { ITodo } from "@/interfaces";
 import todoItem from "./todo-item.vue";
 
-const props = defineProps({
-  todos: {
-    type: Array,
-  },
-  loading: {
-    type: Boolean,
-  },
-});
+interface todoListProps {
+  todos: ITodo[];
+  loading: boolean;
+}
+
+const props = defineProps<todoListProps>();
 </script>
 
 <template>

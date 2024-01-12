@@ -1,11 +1,12 @@
 import { defineStore } from "pinia";
 import { ref, watch } from "vue";
+import type { ITodo } from "@/interfaces";
 
 export const useTodoStore = defineStore("todoStore", () => {
-  const todos = ref([]);
-  const loading = ref(false);
+  const todos = ref<ITodo[]>([]);
+  const loading = ref<boolean>(false);
 
-  const addTodo = (value) => {
+  const addTodo = (value: string) => {
     todos.value.push({
       id: Date.now().toString(),
       title: value,
@@ -13,7 +14,7 @@ export const useTodoStore = defineStore("todoStore", () => {
     });
   };
 
-  const removeTodo = (id) => {
+  const removeTodo = (id: string) => {
     todos.value = todos.value.filter((todo) => todo.id !== id);
   };
 
@@ -22,7 +23,7 @@ export const useTodoStore = defineStore("todoStore", () => {
     const response = await fetch(
       "https://jsonplaceholder.typicode.com/todos?_limit=5"
     );
-    const data = await response.json();
+    const data: ITodo[] = await response.json();
     todos.value = data;
     loading.value = false;
   };

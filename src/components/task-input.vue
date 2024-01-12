@@ -1,9 +1,9 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 
 const emits = defineEmits(["addTodo"]);
 
-const inputValue = ref("");
+const inputValue = ref<string>("");
 
 const addTodoAndClearInput = () => {
   if (inputValue.value !== "") {

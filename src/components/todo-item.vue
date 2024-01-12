@@ -1,15 +1,14 @@
-<script setup>
+<script setup lang="ts">
 import { watch } from "vue";
 import { useTodoStore } from "../stores/TodoStore";
 import cn from "classnames";
+import type { ITodo } from "@/interfaces";
 
-const props = defineProps({
-  todo: Object,
-});
+interface todoItemProps {
+  todo: ITodo;
+}
 
-watch(props.todo, () => {
-  console.log(props.todo);
-});
+const props = defineProps<todoItemProps>();
 
 const todoStore = useTodoStore();
 </script>
