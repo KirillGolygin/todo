@@ -5,10 +5,6 @@ const emits = defineEmits(["addTodo"]);
 
 const inputValue = ref("");
 
-const setInputValue = (e) => {
-  inputValue.value = e.target.value;
-};
-
 const addTodoAndClearInput = () => {
   if (inputValue.value !== "") {
     emits("addTodo", inputValue.value);
@@ -20,9 +16,8 @@ const addTodoAndClearInput = () => {
 <template>
   <input
     class="input"
-    :value="inputValue"
+    v-model="inputValue"
     @keydown.enter="addTodoAndClearInput"
-    @input="(event) => setInputValue(event)"
   />
 </template>
 
