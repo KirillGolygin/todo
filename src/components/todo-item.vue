@@ -1,9 +1,14 @@
 <script setup>
+import { watch } from "vue";
 import { useTodoStore } from "../stores/TodoStore";
 import cn from "classnames";
 
 const props = defineProps({
   todo: Object,
+});
+
+watch(props.todo, () => {
+  console.log(props.todo);
 });
 
 const todoStore = useTodoStore();
@@ -12,12 +17,7 @@ const todoStore = useTodoStore();
   <div class="todo-item">
     <p :class="cn({ done: todo.completed })">{{ todo.title }}</p>
     <div class="buttons-container">
-      <input
-        class="todo-togler"
-        type="checkbox"
-        :checked="todo.completed"
-        @input="todoStore.toggleTodoStatus(todo.id)"
-      />
+      <input class="todo-togler" type="checkbox" v-model="todo.completed" />
       <button class="delete-btn" @click="todoStore.removeTodo(todo.id)">
         <font-awesome-icon :icon="['fas', 'xmark']" col />
       </button>

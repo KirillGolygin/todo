@@ -17,14 +17,6 @@ export const useTodoStore = defineStore("todoStore", () => {
     todos.value = todos.value.filter((todo) => todo.id !== id);
   };
 
-  const toggleTodoStatus = (id) => {
-    todos.value.forEach((todo) => {
-      if (todo.id === id) {
-        todo.completed = !todo.completed;
-      }
-    });
-  };
-
   const getTodos = async () => {
     loading.value = true;
     const response = await fetch(
@@ -35,5 +27,5 @@ export const useTodoStore = defineStore("todoStore", () => {
     loading.value = false;
   };
 
-  return { todos, loading, addTodo, removeTodo, toggleTodoStatus, getTodos };
+  return { todos, loading, addTodo, removeTodo, getTodos };
 });
